@@ -196,4 +196,8 @@ export class Calculator {
   square() {
     this.lcd = (parseFloat(this.lcd) * parseFloat(this.lcd)).toString();
   }
+
+  percent() {
+    this.lcd = (parseFloat(this.lcd)/100).toString();
+  }
 }

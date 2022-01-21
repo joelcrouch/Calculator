@@ -21,6 +21,6 @@ window.onload = () => {
   document.getElementById('/').onclick = () => calcUI.op(Op.Div);
   document.getElementById('=').onclick = () => calcUI.equals();
   document.getElementById('C').onclick = () => calcUI.clear();
-  //document.getElementById('%').onclick = () => calcUI.Percent());//both need imp
+  document.getElementById('%').onclick = () => calcUI.percent();
   document.getElementById("^2").onclick = () => calcUI.square();
 }
