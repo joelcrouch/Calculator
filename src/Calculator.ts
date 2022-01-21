@@ -20,7 +20,7 @@ export enum Op {
   /**
    * Division.
    */
-  Div
+  Div  
 }
 
 /**
@@ -189,5 +189,11 @@ export class Calculator {
     }
     this.lcd = '0';
     this.overwrite = true;
+  }
+  /**
+   * Takes the current argument and multiplies it by itself.
+   */
+  square() {
+    this.lcd = (parseFloat(this.lcd) * parseFloat(this.lcd)).toString();
   }
 }

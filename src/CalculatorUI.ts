@@ -46,4 +46,9 @@ export class CalculatorUI extends Calculator {
     super.clear();
     this.lcdDisplay.innerHTML = this.lcd.toString();
   }
+
+  square() {
+    super.square();
+    this.lcdDisplay.innerHTML = this.lcd.toString();
+  }
 }
