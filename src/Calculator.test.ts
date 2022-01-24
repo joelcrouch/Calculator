@@ -350,3 +350,12 @@ test('square the input', () => {
     expect(calc.lcd).toBe((x * x).toString());
   }
 });
+
+test('percent the input', () => {
+  for (let x of numbers) {
+    let calc = new Calculator();
+    calc.lcd = x.toString();
+    calc.percent();
+    expect(calc.lcd).toBe((x /100).toString());
+  }
+});
