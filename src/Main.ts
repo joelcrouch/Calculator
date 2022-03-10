@@ -21,11 +21,9 @@ window.onload = () => {
   document.getElementById('/').onclick = () => calcUI.op(Op.Div);
   document.getElementById('=').onclick = () => calcUI.equals();
   document.getElementById('C').onclick = () => calcUI.clear();
-<<<<<<< HEAD
   document.getElementById('%').onclick = () => calcUI.percent();
   document.getElementById("^2").onclick = () => calcUI.square();
-}
-=======
+
   document.getElementById('error').onchange = event => {
     calcUI.errorLogVisibility =
       (<HTMLInputElement> event.target).checked ?
@@ -51,4 +49,3 @@ window.onload = () => {
         LogVisibility.Ignore;
   };
 };
->>>>>>> 1d9cf73420145528227736a80273e6745f0230b1

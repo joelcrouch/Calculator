@@ -200,7 +200,6 @@ export class Calculator {
     this.lcd = '0';
     this.overwrite = true;
   }
-<<<<<<< HEAD
   /**
    * Takes the current argument and multiplies it by itself.
    */
@@ -211,8 +210,7 @@ export class Calculator {
   percent() {
     this.lcd = (parseFloat(this.lcd)/100).toString();
   }
-}
-=======
+
 
   set errorLogVisibility(visibility: LogVisibility) {
     // TODO
@@ -230,4 +228,3 @@ export class Calculator {
     // TODO
   }
 }
->>>>>>> 1d9cf73420145528227736a80273e6745f0230b1
