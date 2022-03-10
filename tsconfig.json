@@ -9,6 +9,9 @@
     "noImplicitAny": true,
     "allowJs": true
   },
+  "references": [
+    { "path": "logger" }
+  ],
   "include": [
     "src/**/*.ts",
     "node_modules/jest-extended/types/**/*.d.ts"

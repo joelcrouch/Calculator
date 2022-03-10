@@ -1,4 +1,4 @@
-import { Calculator, Op } from "./Calculator"
+import { Calculator, Op } from './Calculator';
 
 /**
  * The UI logic for the calculator interface, which just updates the HTML
@@ -17,32 +17,32 @@ export class CalculatorUI extends Calculator {
     this.lcdDisplay.innerHTML = this.lcd;
   }
 
-  digit(x: number) {
+  digit(x: number): void {
     super.digit(x);
     this.lcdDisplay.innerHTML = this.lcd.toString();
   }
 
-  decimal() {
+  decimal(): void {
     super.decimal();
     this.lcdDisplay.innerHTML = this.lcd.toString();
   }
 
-  negate() {
+  negate(): void {
     super.negate();
     this.lcdDisplay.innerHTML = this.lcd.toString();
   }
 
-  op(o: Op) {
+  op(o: Op): void {
     super.op(o);
     this.lcdDisplay.innerHTML = this.lcd.toString();
   }
 
-  equals() {
+  equals(): void {
     super.equals();
     this.lcdDisplay.innerHTML = this.lcd.toString();
   }
 
-  clear() {
+  clear(): void {
     super.clear();
     this.lcdDisplay.innerHTML = this.lcd.toString();
   }
