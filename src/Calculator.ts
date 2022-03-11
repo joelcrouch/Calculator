@@ -1,4 +1,4 @@
-import { } from 'logger';
+import { } from '../logger';
 
 /**
  * The binary operations supported by the calculator.
@@ -214,6 +214,12 @@ export class Calculator {
 
   set errorLogVisibility(visibility: LogVisibility) {
     // TODO
+   /* if (visibility === Display){
+      //run display function from logger function
+    }
+    else if (visibility === Ignore ){
+      //run ignore function from logger 
+    }*/
   }
 
   set warningLogVisibility(visibility: LogVisibility) {
