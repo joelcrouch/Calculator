@@ -1,4 +1,4 @@
-import { } from '../logger';
+import { Logger } from '../logger';
 
 /**
  * The binary operations supported by the calculator.
@@ -68,6 +68,14 @@ export class Calculator {
    */
   repeat: boolean;
 
+  calLog: Logger;
+
+  /**
+   * Logger for the calculator.  Default logger implementation is to set all 
+   * log levels to 'true'.  Info, warning, debug and error will display their 
+   * messages.
+   */
+
   /**
    * In its initial state, the calculator's screen shows `0`, there is no
    * previous result or operation, and overwrite mode is enabled.
@@ -78,6 +86,7 @@ export class Calculator {
     this.lastOp = null;
     this.overwrite = true;
     this.repeat = false;
+    this.calLog = new Logger();
   }
 
   /**
@@ -213,24 +222,38 @@ export class Calculator {
 
 
   set errorLogVisibility(visibility: LogVisibility) {
-    // TODO
-   /* if (visibility === Display){
-      //run display function from logger function
+    if(visibility===0){
+      this.calLog.displayError();
     }
-    else if (visibility === Ignore ){
-      //run ignore function from logger 
-    }*/
+    else if(visibility===1){
+      this.calLog.ignoreError();
+    }
   }
 
   set warningLogVisibility(visibility: LogVisibility) {
-    // TODO
+    if(visibility===0){
+      this.calLog.displayWarn();
+    }
+    else if(visibility===1){
+      this.calLog.ignoreWarn();
+    }
   }
 
   set infoLogVisibility(visibility: LogVisibility) {
-    // TODO
+    if(visibility===0){
+      this.calLog.displayInfo();
+    }
+    else if(visibility===1){
+      this.calLog.ignoreInfo();
+    }
   }
 
   set debugLogVisibility(visibility: LogVisibility) {
-    // TODO
+    if(visibility===0){
+      this.calLog.displayDebug();
+    }
+    else if(visibility===1){
+      this.calLog.ignoreDebug();
+    }
   }
 }
