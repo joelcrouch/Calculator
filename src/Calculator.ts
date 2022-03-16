@@ -94,6 +94,7 @@ export class Calculator {
    * @param x a single digit, 0-9
    */
   digit(x: number): void {
+    this.debugLog();
     if (this.overwrite) {
       this.lcd = x.toString();
       this.overwrite = false;
@@ -106,6 +107,7 @@ export class Calculator {
    * Input a decimal point.
    */
   decimal(): void {
+    this.debugLog();
     if (this.overwrite) {
       this.lcd = '0.';
       this.overwrite = false;
@@ -118,6 +120,7 @@ export class Calculator {
    * Negate the current value on the screen.
    */
   negate(): void {
+    this.debugLog();
     if (this.overwrite) {
       this.lcd = '0';
       this.overwrite = false;
@@ -136,6 +139,7 @@ export class Calculator {
    * on the second + input.
    */
   op(o: Op): void {
+    this.debugLog();
     this.overwrite = true;
     if (this.arg === null || this.repeat) { // if this is the first argument
       this.lastOp = o;
@@ -145,7 +149,11 @@ export class Calculator {
         case Op.Add: this.lcd = (this.arg + parseFloat(this.lcd)).toString(); break;
         case Op.Sub: this.lcd = (this.arg - parseFloat(this.lcd)).toString(); break;
         case Op.Mul: this.lcd = (this.arg * parseFloat(this.lcd)).toString(); break;
-        case Op.Div: this.lcd = (this.arg / parseFloat(this.lcd)).toString(); break;
+        case Op.Div: if(this.arg === 0){
+          this.calLog.error("Divison by zero is not supported.");
+          break; 
+        }
+        this.lcd = (this.arg / parseFloat(this.lcd)).toString(); break;
       }
       this.lastOp = o;
       this.arg = parseFloat(this.lcd);
@@ -161,6 +169,7 @@ export class Calculator {
    * @see {@link repeat}
    */
   equals(): void {
+    this.debugLog();
     // If `repeat` is disabled, this press of = will enable it. In that case,
     // the value currently on screen is the second argument, the one that's used
     // when repeating the operation.
@@ -180,11 +189,11 @@ export class Calculator {
         break;
       case Op.Mul: this.lcd = (this.arg * parseFloat(this.lcd)).toString(); break;
       case Op.Div:
-        if (this.repeat)
-          this.lcd = (parseFloat(this.lcd) / this.arg).toString();
-        else
-          this.lcd = (this.arg / parseFloat(this.lcd)).toString();
-        break;
+        if(this.arg === 0){
+          this.calLog.error("Divison by zero is not supported.");
+          break; 
+        }
+        this.lcd = (this.arg / parseFloat(this.lcd)).toString(); break;
     }
 
     // If `repeat` is disabled, we need to save the previous value of the screen
@@ -194,6 +203,7 @@ export class Calculator {
 
     this.repeat = true;
     this.overwrite = true;
+    this.calLog.info("Overwrite is now enabled.");
   }
 
   /**
@@ -201,6 +211,7 @@ export class Calculator {
    * entire calculator to its initial state.
    */
   clear(): void {
+    this.debugLog();
     if (this.overwrite) {
       this.arg = null;
       this.lastOp = null;
@@ -208,15 +219,19 @@ export class Calculator {
     }
     this.lcd = '0';
     this.overwrite = true;
+    this.calLog.info("Overwrite is now enabled.");
   }
   /**
    * Takes the current argument and multiplies it by itself.
    */
   square() {
+    this.debugLog();
     this.lcd = (parseFloat(this.lcd) * parseFloat(this.lcd)).toString();
+    
   }
 
   percent() {
+    this.debugLog();
     this.lcd = (parseFloat(this.lcd)/100).toString();
   }
 
@@ -254,6 +269,18 @@ export class Calculator {
     }
     else if(visibility===1){
       this.calLog.ignoreDebug();
+    }
+  }
+  debugLog() {
+    this.calLog.debug("Button pressed.");
+  }
+
+  highOrLowWarningLog(){
+    if (parseFloat(this.lcd) >= Number.MAX_SAFE_INTEGER){
+      this.calLog.warn("Number is greater than the maximum number");
+    }
+    else if (parseFloat(this.lcd)  <= Number.MIN_SAFE_INTEGER){
+      this.calLog.warn("Number is less than the maximum number");
     }
   }
 }
