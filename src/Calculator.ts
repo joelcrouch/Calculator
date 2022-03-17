@@ -129,9 +129,10 @@ export class Calculator {
     } else if (this.lcd !== '0') { // don't negate '0'
       if (this.lcd.charAt(0) === '-')
         this.lcd = this.lcd.substring(1);
-      else
+      else {
         this.lcd = '-' + this.lcd;
         this.highOrLowWarningLog();
+      }
     }
   }
 
