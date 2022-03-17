@@ -97,9 +97,11 @@ export class Calculator {
     this.debugLog();
     if (this.overwrite) {
       this.lcd = x.toString();
+      this.highOrLowWarningLog();
       this.overwrite = false;
     } else {
       this.lcd += x;
+      this.highOrLowWarningLog();
     }
   }
 
@@ -129,6 +131,7 @@ export class Calculator {
         this.lcd = this.lcd.substring(1);
       else
         this.lcd = '-' + this.lcd;
+        this.highOrLowWarningLog();
     }
   }
 
@@ -146,14 +149,21 @@ export class Calculator {
       this.arg = parseFloat(this.lcd);
     } else { // if this is the second argument
       switch (this.lastOp) {
-        case Op.Add: this.lcd = (this.arg + parseFloat(this.lcd)).toString(); break;
-        case Op.Sub: this.lcd = (this.arg - parseFloat(this.lcd)).toString(); break;
-        case Op.Mul: this.lcd = (this.arg * parseFloat(this.lcd)).toString(); break;
+        case Op.Add: this.lcd = (this.arg + parseFloat(this.lcd)).toString(); 
+        this.highOrLowWarningLog();
+        break;
+        case Op.Sub: this.lcd = (this.arg - parseFloat(this.lcd)).toString(); 
+        this.highOrLowWarningLog();
+        break;
+        case Op.Mul: this.lcd = (this.arg * parseFloat(this.lcd)).toString(); 
+        this.highOrLowWarningLog();
+        break;
         case Op.Div: if(this.arg === 0){
           this.calLog.error("Divison by zero is not supported.");
-          break; 
-        }
-        this.lcd = (this.arg / parseFloat(this.lcd)).toString(); break;
+            }
+        this.lcd = (this.arg / parseFloat(this.lcd)).toString();
+        this.highOrLowWarningLog(); 
+        break;
       }
       this.lastOp = o;
       this.arg = parseFloat(this.lcd);
@@ -180,20 +190,26 @@ export class Calculator {
     // This doesn't matter in the + and * cases because the result is the same
     // either way.
     switch (this.lastOp) {
-      case Op.Add: this.lcd = (this.arg + parseFloat(this.lcd)).toString(); break;
+      case Op.Add: this.lcd = (this.arg + parseFloat(this.lcd)).toString(); 
+        this.highOrLowWarningLog();
+        break;
       case Op.Sub:
         if (this.repeat)
           this.lcd = (parseFloat(this.lcd) - this.arg).toString();
         else
           this.lcd = (this.arg - parseFloat(this.lcd)).toString();
+          this.highOrLowWarningLog();
+          break;
+      case Op.Mul: this.lcd = (this.arg * parseFloat(this.lcd)).toString(); 
+        this.highOrLowWarningLog();
         break;
-      case Op.Mul: this.lcd = (this.arg * parseFloat(this.lcd)).toString(); break;
       case Op.Div:
         if(this.arg === 0){
           this.calLog.error("Divison by zero is not supported.");
           break; 
         }
-        this.lcd = (this.arg / parseFloat(this.lcd)).toString(); break;
+        this.lcd = (this.arg / parseFloat(this.lcd)).toString(); 
+        this.highOrLowWarningLog(); break;
     }
 
     // If `repeat` is disabled, we need to save the previous value of the screen
@@ -220,6 +236,7 @@ export class Calculator {
     this.lcd = '0';
     this.overwrite = true;
     this.calLog.info("Overwrite is now enabled.");
+    this.highOrLowWarningLog();
   }
   /**
    * Takes the current argument and multiplies it by itself.
@@ -227,12 +244,13 @@ export class Calculator {
   square() {
     this.debugLog();
     this.lcd = (parseFloat(this.lcd) * parseFloat(this.lcd)).toString();
-    
+    this.highOrLowWarningLog();
   }
 
   percent() {
     this.debugLog();
     this.lcd = (parseFloat(this.lcd)/100).toString();
+    this.highOrLowWarningLog();
   }
 
 
